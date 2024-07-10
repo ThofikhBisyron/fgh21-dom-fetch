@@ -1,0 +1,115 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .big {
+            background-color: aqua;
+            width: 800px;
+            height: 500px;
+            align-content: center;
+            margin-left: 25%;
+            margin-top: 100px;
+            border-radius: 10px;
+        }
+        .little {
+            background-color: aliceblue;
+            width: 300px;
+            height: 200px;
+            align-content: center;
+            margin-left: 35%;
+            border-radius: 10px;
+        }
+        .text-login {
+            display: flex;
+            flex-direction: column;
+            width: 80%;
+            margin-left: 30px;
+            margin-top: 10px;
+            border-color: grey;
+            border-width: 1px;
+            
+        }
+        .submit {
+            margin-top: 10px;
+            margin-left: 205px; 
+        }
+        input {
+            border-radius: 10px;
+            border-width: 5px;
+        }
+        button {
+            width: 70px;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="big">
+        <form class="little" id="form">
+            <div class="text-login">
+                <input type="email" placeholder="Input Username" name="email" id="email"> 
+            </div>
+            <div class="text-login">
+                <input type="password" placeholder="Input Password" name="password" id="password">
+            </div>
+            <div class="Submit">
+                <button type="submit" placeholder="Submit" id="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+    <script>   
+    const form = document.getElementById("form")
+    const alrt = (def) => {
+        def.preventDefault()
+        const e = def.target.email.value
+        const p = def.target.password.value
+        const formData = new URLSearchParams()
+        formData.append('email', e)
+        formData.append('password', p)
+       
+        fetch ('https://st2lww-8888.csb.app/auth/login', {
+            method: 'POST',
+            body: formData
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.success === true){
+                window.alert(data.message)
+            }else {
+                window.alert(data.message)
+            }
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    }
+    form.addEventListener('submit', alrt) //memberikan event ke element yg di tuju
+     // if (e === 'admin@mail.com' && p === '1234'){
+        //     window.alert('gaskan')
+        // } else{
+        //     window.alert('data tidak sesuai')
+        // }
+
+    //  form.from(button).forEach((btn) =>{
+    //     btn.addEventListener("click", (event) => {
+    //         if (event.)
+    //     }
+        // const btn = document.getElementById("submit")
+        // btn.onclick = ()  => {
+        // const email = document.getElementById("email").value
+        // const password = document.getElementById("password").value
+
+        // if (email === "admin@mail.com" || password === "1234" ) {
+        //     window.alert("Login Sukses")
+        // }else{
+        //     window.alert("Login Gagal")
+        // }
+
+        // }
+        // method="post" 
+        // action="https://st2lww-8888.csb.app/auth/login"
+    </script>
+</body>
+</html>
