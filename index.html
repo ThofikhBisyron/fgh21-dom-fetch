@@ -90,30 +90,50 @@
                     window.alert(data.message)
                 }
             })
-        const tr = document.createElement('tr')
-        const nametd = document.createElement('td')
-        const agetd = document.createElement('td')
-        const gendertd = document.createElement('td')
-        const smokertd = document.createElement('td')
-        const cigarettestd = document.createElement('td')
-            
-
-        const tr = document.createElement('tr')
-        const nametd = document.createElement('td')
-        const agetd = document.createElement('td')
-        const gendertd = document.createElement('td')
-        const smokertd = document.createElement('td')
-        const cigarettestd = document.createElement('td')
-        
-        fetch('https://st2lww-8888.csb.app/thofikh/data')
-
-
-        tr.
+      
         })  
-
-       
+        const tbody = document.getElementById('tbody')
+        async function getApi() {
+            const response = await fetch('https://st2lww-8888.csb.app/thofikh/data')
+            const data = await response.json()
+            tbody.innerHTML = ""
+            data.results.forEach((Element) => {
+                const tr = document.createElement('tr')
+                const nametd = document.createElement('td')
+                const agetd = document.createElement('td')
+                const gendertd = document.createElement('td')
+                const smokertd = document.createElement('td')
+                const cigarettestd = document.createElement('td')
+                nametd.textContent = Element.name
+                agetd.textContent = Element.age
+                gendertd.textContent = Element.gender
+                if (Element.smoker) {
+                    smokertd.textContent = document.getElementById("ya").value
+                } else {
+                    smokertd.textContent = document.getElementById("tidak").value
+                }
+                cigarettestd.textContent = Element.cigarVariant.join("; ")
+                console.log(cigarettestd)
+                tr.appendChild(nametd)
+                tr.appendChild(agetd)
+                tr.appendChild(gendertd)
+                tr.appendChild(smokertd)
+                tr.appendChild(cigarettestd)
+                tbody.appendChild(tr)
+             })
+        }
+        getApi()
     
         
+        //     const baris = document.createElement("tr")
+
+        //     const nameisi = document.createElement("td")
+        //     nameisi.textContent = name
+        //     baris.appendChild(nameisi)
+    
+        
+        
+        //    
             
         //     const name = document.getElementById("name").value
         //     const age = document.getElementById("age").value
