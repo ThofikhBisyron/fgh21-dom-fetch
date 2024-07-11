@@ -52,48 +52,8 @@
 
 </body>
 <script>
-            document.getElementById("form").addEventListener("submit", function(event) {
-            event.preventDefault()
-            
-            const name = document.getElementById("name").value
-            const age = document.getElementById("age").value
-            const gender = document.querySelector('input[name="gender"]:checked').value
-            const smoker = document.querySelector('input[name="select"]:checked').value
-            const cigarette = document.querySelectorAll('input[type="checkbox"]:checked')
-                
-            let cigarettes = '';
-            for (let i = 0; i < cigarette.length; i++) {
-                cigarettes += cigarette[i].value;
-                if (i < cigarette.length - 1) {
-                    cigarettes += ', ';
-                }
-            }
-            
-            
-            const listForm = new URLSearchParams()
-            listForm.append("name", name)
-            listForm.append("age", age)
-            listForm.append("gender", gender)
-            listForm.append("isSmoker", smoker)
-            listForm.append("cigarVariant", cigarettes)
-            
-
-            fetch ('https://st2lww-8888.csb.app/thofikh/data', {
-            method: 'POST',
-            body: listForm,
-            })
-            .then((response) => response.json())
-            .then((data) =>{
-                if (data.success === true) {
-                    window.alert(data.message)
-                }else{
-                    window.alert(data.message)
-                }
-            })
-      
-        })  
-        const tbody = document.getElementById('tbody')
-        async function getApi() {
+            const tbody = document.getElementById('tbody')
+            async function getApi() {
             const response = await fetch('https://st2lww-8888.csb.app/thofikh/data')
             const data = await response.json()
             tbody.innerHTML = ""
@@ -123,6 +83,48 @@
              })
         }
         getApi()
+
+            document.getElementById("form").addEventListener("submit", function(event) {
+            event.preventDefault()
+            
+            const name = document.getElementById("name").value
+            const age = document.getElementById("age").value
+            const gender = event.target.gender.value
+            const smoker = event.target.select.value
+            const cigarette = document.querySelectorAll('input[type="checkbox"]:checked')
+                
+            let cigarettes = '';
+            for (let i = 0; i < cigarette.length; i++) {
+                cigarettes += cigarette[i].value;
+                if (i < cigarette.length - 1) {
+                    cigarettes += ', ';
+                }
+            }
+            
+            
+            const listForm = new URLSearchParams()
+            listForm.append("name", name)
+            listForm.append("age", age)
+            listForm.append("gender", gender)
+            listForm.append("isSmoker", smoker)
+            listForm.append("cigarVariant", cigarettes)
+            
+            if (name === "" || age === "" || gender === "" || smoker === ""){
+            window.alert("fill the form")
+            return
+            }
+            fetch ('https://st2lww-8888.csb.app/thofikh/data', {
+            method: 'POST',
+            body: listForm,
+            })
+            .then((response) => response.json())
+            .then((data) =>{
+                window.alert(data.message)
+                getApi()
+            })
+      
+        })  
+        
     
         
         //     const baris = document.createElement("tr")
